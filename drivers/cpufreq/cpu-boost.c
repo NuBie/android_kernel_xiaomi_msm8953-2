@@ -207,7 +207,7 @@ static void do_input_boost_rem(struct work_struct *work)
 	}
 }
 
-void do_input_boost_max()
+void do_input_boost_max(unsigned int duration_ms)
 {
 	unsigned int i;
 	struct cpu_sync *i_sync_info;
@@ -225,8 +225,7 @@ void do_input_boost_max()
 	update_policy_online();
 
 	queue_delayed_work(system_power_efficient_wq,
-		&input_boost_rem, msecs_to_jiffies(
-			input_boost_ms < 1500 ? 1500 : input_boost_ms));
+		&input_boost_rem, msecs_to_jiffies(duration_ms));
 }
 
 static void do_input_boost(struct kthread_work *work)
